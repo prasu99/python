@@ -1,1 +1,28 @@
+name: 'POC-Middleware'
 
+on:
+  workflow_dispatch:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ main ]
+    types: [closed]
+    
+jobs:
+  DevDeploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'dev' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: DevGitPull
+        run: echo Hello, world!
+             git pull dev
+  ProdDeploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: DevGitPull
+        run: echo Hello, world!
+             git pull main
+          
